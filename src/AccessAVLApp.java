@@ -1,5 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileWriter;
+
+
 public class AccessAVLApp {
   public static void main ( String args []) {
-    System.out.println("hello world");
+    ReadFile file = new ReadFile();
   }
 }
