@@ -5,23 +5,25 @@
 
 public class AVLTree<dataType extends Comparable<? super dataType>> extends BinaryTree<dataType>
 {
+  int findCount = 0;
+  int insertCount = 0;
    public int height ( BinaryTreeNode<dataType> node )
    {
       if (node != null)
          return node.height;
       return -1;
    }
-   
+
    public int balanceFactor ( BinaryTreeNode<dataType> node )
    {
       return height (node.right) - height (node.left);
    }
-   
+
    public void fixHeight ( BinaryTreeNode<dataType> node )
    {
       node.height = Math.max (height (node.left), height (node.right)) + 1;
    }
-   
+
    public BinaryTreeNode<dataType> rotateRight ( BinaryTreeNode<dataType> p )
    {
       BinaryTreeNode<dataType> q = p.left;
@@ -41,7 +43,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
       fixHeight (p);
       return p;
    }
-   
+
    public BinaryTreeNode<dataType> balance ( BinaryTreeNode<dataType> p )
    {
       fixHeight (p);
@@ -66,6 +68,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
    }
    public BinaryTreeNode<dataType> insert ( dataType d, BinaryTreeNode<dataType> node )
    {
+      insertCount++;
       if (node == null)
          return new BinaryTreeNode<dataType> (d, null, null);
       if (d.compareTo (node.data) <= 0)
@@ -74,11 +77,11 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
          node.right = insert (d, node.right);
       return balance (node);
    }
-   
+
    public void delete ( dataType d )
    {
       root = delete (d, root);
-   }   
+   }
    public BinaryTreeNode<dataType> delete ( dataType d, BinaryTreeNode<dataType> node )
    {
       if (node == null) return null;
@@ -99,7 +102,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
       }
       return balance (node);
    }
-   
+
    public BinaryTreeNode<dataType> findMin ( BinaryTreeNode<dataType> node )
    {
       if (node.left != null)
@@ -125,14 +128,15 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
    }
    public BinaryTreeNode<dataType> find ( dataType d, BinaryTreeNode<dataType> node )
    {
-      if (d.compareTo (node.data) == 0) 
+      findCount++;
+      if (d.compareTo (node.data) == 0)
          return node;
       else if (d.compareTo (node.data) < 0)
          return (node.left == null) ? null : find (d, node.left);
       else
          return (node.right == null) ? null : find (d, node.right);
    }
-   
+
    public void treeOrder ()
    {
       treeOrder (root, 0);
@@ -148,5 +152,12 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
          treeOrder (node.right, level+1);
       }
    }
-}
 
+   public int getFindCount() {
+     return findCount;
+   }
+
+   public int getInsertCount() {
+     return insertCount;
+   }
+}
