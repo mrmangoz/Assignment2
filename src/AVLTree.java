@@ -64,6 +64,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
 
    public void insert ( dataType d )
    {
+     insertCount = 0;
       root = insert (d, root);
    }
    public BinaryTreeNode<dataType> insert ( dataType d, BinaryTreeNode<dataType> node )
@@ -121,6 +122,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
 
    public BinaryTreeNode<dataType> find ( dataType d )
    {
+     findCount = 0;
       if (root == null)
          return null;
       else

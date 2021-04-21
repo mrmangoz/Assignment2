@@ -13,7 +13,7 @@ def randomLines(n):
     r.shuffle(linesList) # shuffles the list
     return linesList
 
-def runAVLApp(datasetSize):
+'''def runAVLApp(datasetSize):
     with open("data/oklist.txt", "r") as dfile:
         for line in dfile:
             # loops through each line in new oklist
@@ -29,17 +29,9 @@ def runAVLApp(datasetSize):
         # retrieves the operation count outputted by java program
         count = countfile.read()
         with open("data/experiment/AccessAVLAppInsert" + str(datasetSize) + ".txt", "a") as countstore:
-            countstore.write(count) # writes student ID and operation count to new text file
-'''def runAccessBSTApp(datasetSize):
-    # see above
-    with open("data/oklist.txt", "r") as dfile:
-        for line in dfile:
-            studentID = str(line.strip().split(" ")[0])
-            os.system("java -cp bin AccessBSTApp " + studentID)
-            with open("data/instrumentation/AccessBSTAppCount.txt", "r") as countfile:
-                count = countfile.read()
-                with open("data/experiment/AccessBSTApp" + str(datasetSize) + ".txt", "a") as countstore:
-                    countstore.write(studentID + " " + count + "\n")'''
+            countstore.write(count) # writes student ID and operation count to new text file'''
+def runExperiment(datasetSize):
+    os.system("java -cp bin Experiment " + datasetSize)
 
 for n in range(1,11):
     # loops through datasetSize = 500,1000,1500....5000
@@ -51,5 +43,6 @@ for n in range(1,11):
                                                    # from the original oklist
     varyingfile.close()
 
-    runAVLApp(datasetSize)
+    runExperiment(str(datasetSize))
+    
     #runAccessBSTApp(datasetSize)

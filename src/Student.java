@@ -19,6 +19,13 @@ public class Student implements Comparable<Student> {
     studentNumber = s;
   }
 
+  /*
+   * Get method to return the student number.
+   */
+  public String getNumber() {
+    return studentNumber;
+  }
+
   /**
    * Get method to return the student name.
    */

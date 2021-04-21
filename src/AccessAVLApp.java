@@ -28,7 +28,7 @@ public class AccessAVLApp {
       String studentNumber = studentListRaw[i][0];
       String name = studentListRaw[i][1];
       aVLTemp.insert(new Student(studentNumber, name));
-      WriteFile("data/instrumentation/AccessAVLAppInsertCount.txt", Integer.toString(aVLTemp.getInsertCount()));
+      writeFile("data/instrumentation/AccessAVLAppInsertCount.txt", Integer.toString(aVLTemp.getInsertCount()));
     }
     return aVLTemp;
   }
@@ -36,7 +36,7 @@ public class AccessAVLApp {
   public static void printStudent(AVLTree<Student> aVLStudent, Student otherStudent) {
     CreateCountFile("data/instrumentation/AccessAVLAppFindCount.txt");
     if (aVLStudent.find(otherStudent) != null) {
-      WriteFile("data/instrumentation/AccessAVLAppFindCount.txt", Integer.toString(aVLStudent.getFindCount()));
+      writeFile("data/instrumentation/AccessAVLAppFindCount.txt", otherStudent.getNumber() + " " + Integer.toString(aVLStudent.getFindCount()));
       System.out.println(aVLStudent.find(otherStudent).getData().getName());
     } else {
       System.out.println("Access denied!");
@@ -51,7 +51,7 @@ public class AccessAVLApp {
       File tempFile = new File(filePath);
   }
 
-  public static void WriteFile(String filePath, String data) {
+  public static void writeFile(String filePath, String data) {
     try {
       FileWriter fileWriter = new FileWriter(filePath);
       fileWriter.write(data);
