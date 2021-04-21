@@ -8,7 +8,7 @@ public class BinaryTreeNode<dataType>
    BinaryTreeNode<dataType> left;
    BinaryTreeNode<dataType> right;
    int height;
-   
+
    public BinaryTreeNode ( dataType d, BinaryTreeNode<dataType> l, BinaryTreeNode<dataType> r )
    {
       data = d;
@@ -16,7 +16,8 @@ public class BinaryTreeNode<dataType>
       right = r;
       height = 0;
    }
-   
+
    BinaryTreeNode<dataType> getLeft () { return left; }
    BinaryTreeNode<dataType> getRight () { return right; }
+   dataType getData () {return data; }
 }
