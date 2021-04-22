@@ -3,7 +3,6 @@
 import os
 import random as r
 import shutil as s
-
 file = open("data/oklistraw.txt", "r") # opens original oklist file
 lines = file.readlines() # list of all lines in original oklist file
 
@@ -11,6 +10,7 @@ def runExperiment(datasetSize):
     os.system("java -cp bin Experiment " + datasetSize)
 
 def createCriticalFiles(path, list):
+    # writes min, max, average to different text files for analysis
     size = 0
     for sublist in list:
         minC, averageC, maxC = 0,0,0
@@ -26,6 +26,7 @@ def createCriticalFiles(path, list):
             criticalFile.write(str(maxC) + "\n")
 
 def criticalValues():
+    # calculates lists of all find and insert count operations
     criticalListFind = []
     criticalListInsert = []
     for n in range(500,5500, 500):
@@ -46,7 +47,7 @@ def criticalValues():
 
 
 for n in range(1,11):
-    break
+
     datasetSize = n*500
     subsetLinePos = (lambda l: r.sample(l, datasetSize))([i for i in range(datasetSize-1, -1, -1)])
     varyingfile = open("data/oklist.txt", "w")
@@ -56,4 +57,4 @@ for n in range(1,11):
     varyingfile.close()
     runExperiment(str(datasetSize))
     s.move("data/instrumentation/AccessAVLAppInsertCount.txt", "data/experiment/AccessAVLAppInsertCount" + str(datasetSize) + ".txt")
-    criticalValues()
+criticalValues()

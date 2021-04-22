@@ -18,6 +18,6 @@ runavl: $(CLASS_FILES)
 runexperiment:
 	java -cp bin Experiment
 doc:
-	javadoc -d docs src/*.java
+	javadoc -sourcepath src -d doc src/*.java
 cleanexperiment:
 	rm data/experiment/*

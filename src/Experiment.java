@@ -6,7 +6,8 @@ import java.io.IOException;
 /**
   * Main java method for executing experiment. Implements methods from AccessAVLApp.
   * Stores all find operation counters in a String variable in-memory, to optimise speed, then writes to a text file.
-  * After AVL Tree has been built, writes the insert operation
+  * After AVL Tree has been built, writes the insert operation.
+  * Uses methods from AccessAVLApp
   */
 public class Experiment {
   public static void main (String args[]) throws FileNotFoundException {
@@ -14,7 +15,7 @@ public class Experiment {
       String findCountData = "";
       ReadFile file = new ReadFile();
       AVLTree<Student> aVLStudent = new AVLTree<Student> ();
-      aVLStudent = AccessAVLApp.buildAVL(file);
+      aVLStudent = AccessAVLApp.buildAVL(file); // creates AVL Tree based on new dataset size
       Scanner lineScanner = new Scanner (new File("data/oklist.txt"));
       while (lineScanner.hasNextLine()) {
         String[] studentDetails = lineScanner.nextLine().split(" ");

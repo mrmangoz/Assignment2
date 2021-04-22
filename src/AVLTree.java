@@ -69,13 +69,18 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
    }
    public BinaryTreeNode<dataType> insert ( dataType d, BinaryTreeNode<dataType> node )
    {
-      insertCount++;
-      if (node == null)
-         return new BinaryTreeNode<dataType> (d, null, null);
-      if (d.compareTo (node.data) <= 0)
+      if (node == null) {
+        insertCount++;
+        return new BinaryTreeNode<dataType> (d, null, null);
+       }
+      if (d.compareTo (node.data) <= 0) {
+         insertCount++;
          node.left = insert (d, node.left);
-      else
+       }
+      else {
+         insertCount++;
          node.right = insert (d, node.right);
+       }
       return balance (node);
    }
 
@@ -122,7 +127,7 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
 
    public BinaryTreeNode<dataType> find ( dataType d )
    {
-     findCount = 0;
+      findCount = 0;
       if (root == null)
          return null;
       else
@@ -130,13 +135,19 @@ public class AVLTree<dataType extends Comparable<? super dataType>> extends Bina
    }
    public BinaryTreeNode<dataType> find ( dataType d, BinaryTreeNode<dataType> node )
    {
-      findCount++;
-      if (d.compareTo (node.data) == 0)
-         return node;
-      else if (d.compareTo (node.data) < 0)
-         return (node.left == null) ? null : find (d, node.left);
-      else
-         return (node.right == null) ? null : find (d, node.right);
+      if (d.compareTo (node.data) == 0) {
+        findCount++;
+        return node;
+      }
+      else if (d.compareTo (node.data) < 0) {
+        findCount++;
+        return (node.left == null) ? null : find (d, node.left);
+      }
+      else {
+        findCount++;
+        return (node.right == null) ? null : find (d, node.right);
+      }
+
    }
 
    public void treeOrder ()

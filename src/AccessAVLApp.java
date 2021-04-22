@@ -24,7 +24,8 @@ public class AccessAVLApp {
 
   /**
    * Takes in ReadFile object, build a String array from ReadFile and uses it to populate AVL Tree.
-   * Returns AVL Tree.
+   * Builds a String of insert operations and writes it to a text file for analysing purposes.
+   * Returns an AVL Tree of Student objects
    * @param file ReadFile object for building String array.
    */
   public static AVLTree<Student> buildAVL(ReadFile file) {
@@ -64,7 +65,7 @@ public class AccessAVLApp {
 
   /**
    * Prints all student ID, first name and last name from the AVL Tree using the inOrder method.
-   * @param aVLTree AVL Tree of Student objects.
+   * @param aVLStudent AVL Tree of Student objects.
    */
   public static void printAllStudents(AVLTree<Student> aVLStudent) {
     aVLStudent.inOrder();
