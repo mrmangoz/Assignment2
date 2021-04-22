@@ -3,17 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+  * Main java method for executing experiment. Implements methods from AccessAVLApp.
+  * Stores all find operation counters in a String variable in-memory, to optimise speed, then writes to a text file.
+  * After AVL Tree has been built, writes the insert operation
+  */
 public class Experiment {
   public static void main (String args[]) throws FileNotFoundException {
     try {
-      //AccessAVLApp.CreateCountFile("data/experiment/AccessAVLAppFind" + args[0]);
-      //AccessAVLApp.CreateCountFile("data/experiment/AccessAVLAppInsert" + args[0]);
       String findCountData = "";
       ReadFile file = new ReadFile();
       AVLTree<Student> aVLStudent = new AVLTree<Student> ();
       aVLStudent = AccessAVLApp.buildAVL(file);
-      // store insert count
-      AccessAVLApp.writeFile("data/experiment/AccessAVLAppInsertCount" + args[0], Integer.toString(aVLStudent.getInsertCount()));
       Scanner lineScanner = new Scanner (new File("data/oklist.txt"));
       while (lineScanner.hasNextLine()) {
         String[] studentDetails = lineScanner.nextLine().split(" ");
@@ -24,14 +25,9 @@ public class Experiment {
           findCountData += countScanner.nextLine() + "\n";
         }
       }
-      AccessAVLApp.writeFile("data/experiment/AccessAVLAppFindCount" + args[0], findCountData);
+      AccessAVLApp.writeFile("data/experiment/AccessAVLAppFindCount" + args[0] + ".txt", findCountData);
     } catch (ArrayIndexOutOfBoundsException e) {
       System.out.println("No args, please specify dataset size.");
     }
   }
-
-  //public static void append(String appendData, String path) throws IOException {
-  //  Path filePath = Paths.get(path);
-  //  Files.write(filePath, appendData.getBytes(), StandardOpenOption.APPEND);
-  //}
 }

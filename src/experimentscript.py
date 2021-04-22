@@ -2,47 +2,58 @@
 
 import os
 import random as r
+import shutil as s
 
 file = open("data/oklistraw.txt", "r") # opens original oklist file
 lines = file.readlines() # list of all lines in original oklist file
 
-
-def randomLines(n):
-    # takes in dataset size and populates a list of 0 to dataset-1
-    linesList = [i for i in range(n-1, -1, -1)]
-    r.shuffle(linesList) # shuffles the list
-    return linesList
-
-'''def runAVLApp(datasetSize):
-    with open("data/oklist.txt", "r") as dfile:
-        for line in dfile:
-            # loops through each line in new oklist
-            studentID = str(line.strip().split(" ")[0])
-            os.system("java -cp bin AccessAVLApp " + studentID) # runs java program in command-line
-            with open("data/instrumentation/AccessAVLAppFindCount.txt", "r") as countfile:
-                # retrieves the operation count outputted by java program
-                count = countfile.read()
-                with open("data/experiment/AccessAVLAppFind" + str(datasetSize) + ".txt", "a") as countstore:
-                    countstore.write(studentID + " " + count + "\n") # writes student ID and operation count to new text file
-
-    with open("data/instrumentation/AccessAVLAppInsertCount.txt", "r") as countfile:
-        # retrieves the operation count outputted by java program
-        count = countfile.read()
-        with open("data/experiment/AccessAVLAppInsert" + str(datasetSize) + ".txt", "a") as countstore:
-            countstore.write(count) # writes student ID and operation count to new text file'''
 def runExperiment(datasetSize):
     os.system("java -cp bin Experiment " + datasetSize)
 
+def createCriticalFiles(path, list):
+    size = 0
+    for sublist in list:
+        minC, averageC, maxC = 0,0,0
+        size += 500
+        minC = min(sublist)
+        averageC = sum(sublist)/len(sublist)
+        maxC = max(sublist)
+        criticalFile = open(path + str(size) + ".txt", "w")
+        criticalFile.close()
+        with open(path + str(size) + ".txt", "a") as criticalFile:
+            criticalFile.write(str(minC) + "\n")
+            criticalFile.write(str(averageC) + "\n")
+            criticalFile.write(str(maxC) + "\n")
+
+def criticalValues():
+    criticalListFind = []
+    criticalListInsert = []
+    for n in range(500,5500, 500):
+        tempFind = []
+        tempInsert = []
+        with open("data/experiment/AccessAVLAppFindCount" + str(n) + ".txt", "r") as findFile:
+            for line in findFile:
+                find = line.split()[1]
+                tempFind.append(int(find))
+        with open("data/experiment/AccessAVLAppInsertCount" + str(n) + ".txt", "r") as findFile:
+            for line in findFile:
+                insert = line.split()[1]
+                tempInsert.append(int(insert))
+        criticalListFind.append(tempFind)
+        criticalListInsert.append(tempInsert)
+    createCriticalFiles("data/experiment/findCritical", criticalListFind)
+    createCriticalFiles("data/experiment/insertCritical", criticalListInsert)
+
+
 for n in range(1,11):
-    # loops through datasetSize = 500,1000,1500....5000
+    break
     datasetSize = n*500
-    subsetLinePos = randomLines(datasetSize) # generates the list of random positions
+    subsetLinePos = (lambda l: r.sample(l, datasetSize))([i for i in range(datasetSize-1, -1, -1)])
     varyingfile = open("data/oklist.txt", "w")
     for i in range(datasetSize):
         varyingfile.write(lines[subsetLinePos[i]]) # retrieves the line corresponding to the random position allocated
                                                    # from the original oklist
     varyingfile.close()
-
     runExperiment(str(datasetSize))
-    
-    #runAccessBSTApp(datasetSize)
+    s.move("data/instrumentation/AccessAVLAppInsertCount.txt", "data/experiment/AccessAVLAppInsertCount" + str(datasetSize) + ".txt")
+    criticalValues()

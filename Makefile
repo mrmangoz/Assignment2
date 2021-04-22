@@ -19,3 +19,5 @@ runexperiment:
 	java -cp bin Experiment
 doc:
 	javadoc -d docs src/*.java
+cleanexperiment:
+	rm data/experiment/*
